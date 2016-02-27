@@ -1,11 +1,36 @@
 var http = require('http');
+var fs = require('fs');
 
 var message = 'Hurray NodeGirls!';
 
 function handler(request, response) {
+  var endpoint = request.url,
+      method   = request.method;
+
+  console.log(method, ' ', endpoint);
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.write(message);
-  response.end();
+
+  if (endpoint === '/') {
+    fs.readFile(__dirname + '/public/index.html', function(error, file) {
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      response.end(file);
+    });
+
+  } else {
+    if (endpoint == '/node') {
+      response.write(message);
+    } else if (endpoint == '/girls') {
+      response.write('Girls just wanna have respect, equal pay, and equal opportunities!');
+    } else {
+      response.write('Default response');
+    }
+
+    response.end();
+  }
 }
 
 var server = http.createServer(handler);
