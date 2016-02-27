@@ -1,0 +1,23 @@
+{
+  "name": "workshop-cms",
+  "version": "1.0.0",
+  "description": "NodeGirls",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CristinaRO/workshop-cms.git"
+  },
+  "author": "Cristina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CristinaRO/workshop-cms/issues"
+  },
+  "homepage": "https://github.com/CristinaRO/workshop-cms#readme",
+  "dependencies": {
+    "nodemon": "^1.9.1"
+  }
+}
