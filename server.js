@@ -8,9 +8,10 @@ function handler(request, response) {
       method   = request.method;
 
   console.log(method, ' ', endpoint);
-  response.writeHead(200, {"Content-Type": "text/html"});
 
   if (endpoint === '/') {
+    response.writeHead(200, {"Content-Type": "text/html"});
+
     fs.readFile(__dirname + '/public/index.html', function(error, file) {
       if (error) {
         console.log(error);
@@ -22,14 +23,28 @@ function handler(request, response) {
 
   } else {
     if (endpoint == '/node') {
+      response.writeHead(200, {"Content-Type": "text/html"});
       response.write(message);
+      response.end();
     } else if (endpoint == '/girls') {
+      response.writeHead(200, {"Content-Type": "text/html"});
       response.write('Girls just wanna have respect, equal pay, and equal opportunities!');
+      response.end();
     } else {
-      response.write('Default response');
-    }
+      if (endpoint.indexOf('css') > 0)
+        response.writeHead(200, {"Content-Type": "text/css"});
+      else if (endpoint.indexOf('png') > 0 )
+        response.writeHead(200, {"Content-Type": "image/png"});
 
-    response.end();
+      fs.readFile(__dirname + '/public' + endpoint, function(error, file) {
+        if (error) {
+          console.log(error);
+          return;
+        }
+
+        response.end(file);
+      });
+    }
   }
 }
 
